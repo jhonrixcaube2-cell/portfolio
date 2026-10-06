@@ -40,7 +40,7 @@ document.querySelectorAll('.filters button').forEach(btn => btn.addEventListener
 
 // Contact form validation (opens the visitor's email app; swap for Formspree/EmailJS later)
 // Paste your Formspree endpoint here, e.g. https://formspree.io/f/abcdwxyz
-const FORM_ENDPOINT = 'https://formspree.io/f/xvkzzpzk';
+const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
 const form = document.getElementById('form');
 form.addEventListener('submit', e => {
   e.preventDefault();
@@ -156,6 +156,25 @@ addEventListener('load', () => {
   lgeo.setAttribute('position', new T.BufferAttribute(lp, 3)); lgeo.setAttribute('color', new T.BufferAttribute(lc, 3));
   scene.add(new T.LineSegments(lgeo, new T.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: .55, blending: T.AdditiveBlending, depthWrite: false })));
 
+  // "YOTA DEV" sign: stacked layers give the lettering real depth; it flies through the tunnel like a gate
+  const tc = document.createElement('canvas'); tc.width = 1024; tc.height = 256;
+  const tx = tc.getContext('2d'), tex = new T.CanvasTexture(tc);
+  const paint = () => {
+    tx.clearRect(0, 0, 1024, 256); tx.font = '700 170px "Space Grotesk", system-ui, sans-serif'; tx.textAlign = 'center'; tx.textBaseline = 'middle';
+    const g = tx.createLinearGradient(0, 0, 1024, 0); g.addColorStop(0, '#4de1ff'); g.addColorStop(.55, '#a58bff'); g.addColorStop(1, '#ff7ad9');
+    tx.fillStyle = g; tx.shadowColor = '#4de1ff'; tx.shadowBlur = 24; tx.fillText('YOTA DEV', 512, 134); tex.needsUpdate = true;
+  };
+  paint(); if (document.fonts) document.fonts.ready.then(paint);
+  const sign = new T.Group(), SW = small ? 7 : 11, layers = [];
+  for (let i = 0; i < 8; i++) {
+    const front = i === 7;
+    const m = new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, color: front ? 0xffffff : new T.Color(0x0d1f55).lerp(new T.Color(0x3a7bff), i / 7), blending: front ? T.AdditiveBlending : T.NormalBlending });
+    m.userData = { base: front ? .95 : .55 }; m.opacity = m.userData.base;
+    const p = new T.Mesh(new T.PlaneGeometry(SW, SW / 4), m); p.position.z = i * .09; sign.add(p); layers.push(m);
+  }
+  const frame = new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(SW + 1.2, SW / 4 + 1, .8)), new T.LineBasicMaterial({ color: 0x4de1ff, transparent: true, opacity: .7 }));
+  frame.position.z = .3; sign.add(frame); sign.position.set(0, 1.2, -45); scene.add(sign);
+
   // Hero object (core cube + wireframe + rings), sits inside the tunnel
   const hero = new T.Group();
   const core = new T.Mesh(new T.BoxGeometry(1.2, 1.2, 1.2), new T.MeshStandardMaterial({ color: 0x1b2a6b, emissive: 0x2a58ff, emissiveIntensity: .6, metalness: .7, roughness: .25 }));
@@ -205,6 +224,11 @@ addEventListener('load', () => {
       lc.set([nc[i*3]*f, nc[i*3+1]*f, nc[i*3+2]*f, nc[j*3]*f, nc[j*3+1]*f, nc[j*3+2]*f], k * 6); k++;
     }
     lgeo.setDrawRange(0, k * 2); lgeo.attributes.position.needsUpdate = lgeo.attributes.color.needsUpdate = true; ng.attributes.position.needsUpdate = true;
+    // sign: approaches, sways with the mouse, fades out before reaching the camera
+    sign.position.z += dz * .8; if (sign.position.z > 7) sign.position.z = -100;
+    sign.rotation.y = Math.sin(t * .5) * .25 + mouse.x * .3; sign.rotation.x = -mouse.y * .15; sign.position.y = 1.2 + Math.sin(t * .8) * .25;
+    const fade = Math.max(0, Math.min(1, (6 - sign.position.z) / 5));
+    layers.forEach(m => m.opacity = m.userData.base * fade); frame.material.opacity = .7 * fade;
     // camera, hero, lights
     const sc = scrollY / Math.max(1, document.body.scrollHeight - innerHeight);
     cam.position.x += (mouse.x * .8 - cam.position.x) * .04; cam.position.y += (-mouse.y * .5 - cam.position.y) * .04;
