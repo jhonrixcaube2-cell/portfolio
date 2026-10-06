@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Youta Haruki | Computer Science Student & Aspiring Developer</title>
+<meta name="description" content="Portfolio of Youta Haruki, a second-year BS Computer Science student building web apps, Roblox games, and Arduino projects.">
+<meta property="og:title" content="Youta Haruki | Developer Portfolio">
+<meta property="og:description" content="Web development, game development, and electronics projects by a CS student.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas><div class="cur" aria-hidden="true"></div>
+<a class="skip" href="#home">Skip to content</a>
+<header class="nav" id="nav">
+  <a class="logo" href="#home" aria-label="Youta Haruki, home">yh<span>.dev</span></a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  <nav id="menu" aria-label="Main">
+    <a href="#home">Home</a><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#education">Education</a><a href="#experience">Experience</a><a href="#achievements">Achievements</a><a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Hi, I'm Yota</h1>
+      <p class="role">Computer Science Student &amp; Aspiring Developer</p>
+      <p class="lead">I'm a Computer Science student passionate about programming, web development, game development, and technology. I enjoy turning ideas into functional projects while continuously improving my skills.</p>
+      <div class="btns"><a class="btn primary" href="#projects">View My Projects</a><a class="btn ghost" href="#contact">Contact Me</a></div>
+    </div>
+    <div class="editor glass" data-tilt="8" aria-label="Developer profile card">
+      <div class="bar"><b></b><b></b><b></b><span>youta.js</span></div>
+      <div class="avatar img-slot"><img src="images/profile.jpg" alt="Portrait of Youta Umiya" width="150" height="150"><em>YH</em></div>
+      <pre><code><span class="k">const</span> youta = {
+  <span class="p">year</span>: <span class="s">"2nd, BS Computer Science"</span>,
+  <span class="p">builds</span>: [<span class="s">"web"</span>, <span class="s">"games"</span>, <span class="s">"circuits"</span>],
+  <span class="p">learning</span>: <span class="s">"always"</span>,
+  <span class="p">openTo</span>: <span class="s">"internships"</span>
+};</code></pre>
+    </div>
+  </div>
+</section>
+
+<section id="about"><div class="wrap">
+  <h2>About Me</h2>
+  <div class="about">
+    <div class="reveal">
+      <p>I'm a Computer Science student currently developing my skills in programming, web development, game development, and electronics.</p>
+      <p>I learn best by building. Whether it's a web app, a Roblox game, or an Arduino circuit, I like to start a project, break things, and figure out how to make them work.</p>
+    </div>
+    <div class="aside"><div class="mon" data-tilt="16"><div class="screen"><b></b><b></b><b></b><b></b><b></b></div><div class="stand"></div></div>
+    <div class="stats">
+      <div class="glass reveal"><strong>2nd Year</strong>Computer Science Student</div>
+      <div class="glass reveal"><strong>Multiple</strong>Personal Projects</div>
+      <div class="glass reveal"><strong>Programming</strong>&amp; Development</div>
+      <div class="glass reveal"><strong>Continuous</strong>Learner</div>
+    </div></div>
+  </div>
+</div></section>
+
+<section id="skills"><div class="wrap">
+  <h2>Skills</h2>
+  <div class="skill-groups">
+    <div class="glass reveal"><h3>Programming</h3><ul><li tabindex="0" data-desc="Low-level fundamentals: arrays, strings, functions, loops."><i>C</i>C</li><li tabindex="0" data-desc="Semantic, accessible page structure."><i>&lt;&gt;</i>HTML</li><li tabindex="0" data-desc="Responsive layouts, animation and 3D transforms."><i>{}</i>CSS</li><li tabindex="0" data-desc="Interactivity and app logic in the browser."><i>JS</i>JavaScript</li></ul></div>
+    <div class="glass reveal"><h3>Development</h3><ul><li tabindex="0" data-desc="Building complete, responsive sites and apps."><i>W</i>Web Development</li><li tabindex="0" data-desc="Learning servers, auth and data flow."><i>B</i>Backend Development</li><li tabindex="0" data-desc="Connecting apps to stored, synced data."><i>DB</i>Database Integration</li><li tabindex="0" data-desc="Clear layouts people can navigate easily."><i>UX</i>UI/UX Design</li></ul></div>
+    <div class="glass reveal"><h3>Other Technologies</h3><ul><li tabindex="0" data-desc="Circuits with LEDs, buttons and interrupts."><i>Ar</i>Arduino</li><li tabindex="0" data-desc="Version control for every project."><i>Git</i>Git/GitHub</li><li tabindex="0" data-desc="Auth, database and sync for YoTrition."><i>Su</i>Supabase</li><li tabindex="0" data-desc="My everyday editor."><i>VS</i>VS Code</li></ul></div>
+    <div class="glass reveal"><h3>Game Development</h3><ul><li tabindex="0" data-desc="Building and publishing game worlds."><i>Rb</i>Roblox Studio</li><li tabindex="0" data-desc="Scripting game logic and systems."><i>Lu</i>Lua/Luau</li><li tabindex="0" data-desc="Progression, collectibles and rarities."><i>Gs</i>Game Systems</li><li tabindex="0" data-desc="Weighted drops and mutations."><i>%</i>RNG Mechanics</li></ul></div>
+  </div>
+</div></section>
+
+<section id="projects"><div class="wrap">
+  <h2>Projects</h2>
+  <div class="filters" role="group" aria-label="Filter projects">
+    <button class="on" data-f="all">All</button><button data-f="web">Web</button><button data-f="game">Game</button><button data-f="hardware">Hardware</button><button data-f="c">C</button>
+  </div>
+  <div class="projects">
+    <article data-tilt="10" class="card glass featured reveal" data-cat="web">
+      <div class="img-slot"><img src="images/yotrition.jpg" alt="YoTrition app screenshot" loading="lazy"><em>YoTrition</em></div>
+      <div class="body">
+        <h3>YoTrition</h3>
+        <p>YoTrition is a nutrition and calorie-tracking web application designed to help users monitor their daily food intake, calories, and macronutrients.</p>
+        <ul class="feat"><li>Calorie tracking</li><li>Macronutrient tracking</li><li>Daily intake monitoring</li><li>User accounts</li><li>Google authentication</li><li>Data synchronization</li><li>Supabase backend</li></ul>
+        <p class="tags">HTML, CSS, JavaScript, Supabase</p>
+        <div class="btns"><a class="btn primary" href="#" target="_blank" rel="noopener">Live Demo</a><a class="btn ghost" href="#" target="_blank" rel="noopener">View Project</a></div>
+      </div>
+    </article>
+    <article data-tilt="10" class="card glass reveal" data-cat="game">
+      <div class="img-slot"><img src="images/meme-rng.jpg" alt="Philippine Meme RNG screenshot" loading="lazy"><em>Meme RNG</em></div>
+      <div class="body"><h3>Philippine Meme RNG</h3>
+        <p>A Roblox RNG game inspired by Philippine internet culture and memes, featuring collectible characters, different rarities, mutations, animations, and random-based progression.</p>
+        <p class="tags">Roblox Studio, Luau</p><a class="btn ghost" href="#" target="_blank" rel="noopener">View Project</a></div>
+    </article>
+   
+    </article>
+    <article data-tilt="10" class="card glass reveal" data-cat="c">
+      <div class="img-slot"><img src="images/c-projects.jpg" alt="C programming projects" loading="lazy"><em>C Projects</em></div>
+      <div class="body"><h3>C Programming Projects</h3>
+        <p>A collection of beginner-to-intermediate C programming projects created while studying programming fundamentals.</p>
+        <ul class="feat"><li>Arrays</li><li>Strings</li><li>Functions</li><li>Conditional statements</li><li>Loops</li><li>Menu-driven programs</li></ul>
+        <p class="tags">C</p><a class="btn ghost" href="#" target="_blank" rel="noopener">View Project</a></div>
+    </article>
+  </div>
+</div></section>
+
+<section id="education"><div class="wrap">
+  <h2>Education</h2>
+  <ol class="timeline">
+    <li class="reveal"><span class="dot now"></span><div class="glass"><h3>Bachelor of Science in Computer Science</h3><p class="meta">Current: 2nd Year Student</p>
+      <p>Relevant areas: Programming, Web Development, Computer Systems, Electronics/Arduino, Information Technology, Software Development.</p></div></li>
+    <li class="reveal"><span class="dot"></span><div class="glass"><h3>Senior High School</h3><p class="meta">Gateways of Institute Of Science and Technology</p><p>My Strand was relevant to the field in programming. Completed work immersion and built early programming foundations.</p></div></li>
+  </ol>
+</div></section>
+
+<section id="experience"><div class="wrap">
+  <h2>Experience</h2>
+  <div class="two">
+    <div class="glass reveal"><h3>Student Developer</h3><p>Working on personal and academic projects involving programming, web development, game development, and electronics.</p></div>
+    <div class="glass reveal"><h3>OJT / Work Immersion</h3><p>Completed work immersion that helped me develop communication, responsibility, teamwork, and technical skills. Add your company, role, and dates here.</p></div>
+  </div>
+</div></section>
+
+<section id="achievements"><div class="wrap">
+  <h2>Achievements</h2>
+  <div class="ach">
+    <div class="glass reveal">Completed Work Immersion</div>
+    <div class="glass reveal">Completed Academic Programming Projects</div>
+    <div class="glass reveal">Built Personal Web Projects</div>
+    <div class="glass reveal">Arduino Projects</div>
+    <div class="glass reveal">Roblox Development Projects</div>
+  </div>
+</div></section>
+
+<section id="learning"><div class="wrap">
+  <h2>Currently Learning</h2>
+  <div class="learn">
+    <div class="reveal"><span>Advanced C Programming</span><div class="track"><b data-w="55"></b></div></div>
+    <div class="reveal"><span>JavaScript</span><div class="track"><b data-w="65"></b></div></div>
+    <div class="reveal"><span>Backend Development</span><div class="track"><b data-w="45"></b></div></div>
+    <div class="reveal"><span>Database Systems</span><div class="track"><b data-w="50"></b></div></div>
+    <div class="reveal"><span>Roblox Game Development</span><div class="track"><b data-w="70"></b></div></div>
+    <div class="reveal"><span>Software Development</span><div class="track"><b data-w="45"></b></div></div>
+    <div class="reveal"><span>UI/UX Design</span><div class="track"><b data-w="40"></b></div></div>
+  </div>
+</div></section>
+
+<section id="contact"><div class="wrap contact">
+  <div>
+    <h2>Let's Build Something Together</h2>
+    <p>Have a project idea, collaboration opportunity, or just want to connect? Feel free to reach out.</p>
+    <ul class="links">
+      <li><a href="mailto:jhonrixcaube2@gmail.com">jhonrixcaube@gmail.com</a></li>
+      <li><a href="https://github.com/jhonrixcaube2-cell" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://linkedin.com/in/jhonrixcaube2-cell" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://facebook.com/youta.kundesu" target="_blank" rel="noopener">Facebook</a></li>
+    </ul>
+  </div>
+  <form class="glass" id="form" novalidate>
+    <label for="name">Name</label><input id="name" name="name" autocomplete="name" required>
+    <small class="err" data-for="name"></small>
+    <label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required>
+    <small class="err" data-for="email"></small>
+    <label for="msg">Message</label><textarea id="msg" name="msg" rows="5" required></textarea>
+    <small class="err" data-for="msg"></small>
+    <button class="btn primary" type="submit">Send message</button>
+    <p class="ok" id="ok" role="status"></p>
+  </form>
+</div></section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Yota Umiya. All Rights Reserved.</p>
+  <p class="soc"><a href="https://github.com/jhonrixcaube2-cell" aria-label="GitHub">GitHub</a><a href="https://linkedin.com/in/jhonrixcaube2-cell" aria-label="LinkedIn">LinkedIn</a><a href="https://www.facebook.com/youta.kundesu" aria-label="Facebook">Facebook</a></p>
+  <p>Built with passion and code.</p>
+</footer>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script defer src="script.js"></script>
+</body>
+</html>
