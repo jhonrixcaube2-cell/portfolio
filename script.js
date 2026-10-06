@@ -175,23 +175,43 @@ addEventListener('load', () => {
   const frame = new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(SW + 1.2, SW / 4 + 1, .8)), new T.LineBasicMaterial({ color: 0x4de1ff, transparent: true, opacity: .7 }));
   frame.position.z = .3; sign.add(frame); sign.position.set(0, 1.2, -45); scene.add(sign);
 
+  // Subtle tech atmosphere: wireframe spheres/cubes + faint floating code symbols (all drift with the tunnel)
+  const wires = [], wm = new T.MeshBasicMaterial({ color: 0x5b7bff, wireframe: true, transparent: true, opacity: .16, depthWrite: false });
+  const wg = [new T.IcosahedronGeometry(1.4, 1), new T.BoxGeometry(1.6, 1.6, 1.6)];
+  for (let i = 0; i < (small ? 3 : 6); i++) {
+    const m = new T.Mesh(wg[i % 2], wm);
+    m.position.set((R() < .5 ? -1 : 1) * (4 + R() * 7), (R() - .5) * 8, -R() * 50); m.scale.setScalar(.7 + R() * 1.2); scene.add(m); wires.push(m);
+  }
+  const syms = ['{ }', '</>', '( )', ';', '[ ]', '=>', '0x1F', '&&'], codes = [];
+  const symTex = syms.map(sym => {
+    const c = document.createElement('canvas'); c.width = 256; c.height = 128; const x = c.getContext('2d');
+    x.font = '600 74px ui-monospace, Menlo, Consolas, monospace'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#9fd8ff'; x.fillText(sym, 128, 66);
+    return new T.CanvasTexture(c);
+  });
+  for (let i = 0; i < (small ? 7 : 16); i++) {
+    const sp2 = new T.Sprite(new T.SpriteMaterial({ map: symTex[i % syms.length], transparent: true, opacity: .2, depthWrite: false, blending: T.AdditiveBlending }));
+    sp2.scale.set(1.6, .8, 1); sp2.position.set((R() - .5) * 26, (R() - .5) * 12, -R() * 60); sp2.userData.p = R() * 6; scene.add(sp2); codes.push(sp2);
+  }
+
   // Hero object (core cube + wireframe + rings), sits inside the tunnel
   const hero = new T.Group();
   const core = new T.Mesh(new T.BoxGeometry(1.2, 1.2, 1.2), new T.MeshStandardMaterial({ color: 0x1b2a6b, emissive: 0x2a58ff, emissiveIntensity: .6, metalness: .7, roughness: .25 }));
   const shell = new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(2, 2, 2)), new T.LineBasicMaterial({ color: 0x4de1ff }));
   const ring1 = new T.Mesh(new T.TorusGeometry(2, .015, 8, 80), new T.MeshBasicMaterial({ color: 0x8b6bff }));
   const ring2 = ring1.clone(); ring2.rotation.x = Math.PI / 2; ring2.scale.setScalar(1.25);
-  hero.add(core, shell, ring1, ring2); scene.add(hero);
+  const big = new T.Mesh(new T.IcosahedronGeometry(3.4, 1), new T.MeshBasicMaterial({ color: 0x4d6bff, wireframe: true, transparent: true, opacity: .09, depthWrite: false }));
+  hero.add(core, shell, ring1, ring2, big); scene.add(hero);
 
   const narrow = () => innerWidth < 860;
   const resize = () => { renderer.setSize(innerWidth, innerHeight, false); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); hero.position.set(narrow() ? 0 : 3.2, narrow() ? 2.4 : .3, 0); hero.scale.setScalar(narrow() ? .6 : 1); };
   cam.position.set(0, 0, 8); resize(); addEventListener('resize', resize);
 
-  let speed = 7, lastY = scrollY, visible = true, last = performance.now();
+  let fcount = 0, speed = 7, lastY = scrollY, visible = true, last = performance.now();
   document.addEventListener('visibilitychange', () => { visible = !document.hidden; if (visible) { last = performance.now(); loop(); } });
   function loop() {
     if (!visible) return;
     requestAnimationFrame(loop);
+    if (small && (fcount++ & 1)) return;   // phones render at half rate
     const now = performance.now(), dt = Math.min((now - last) / 1000, .05), t = now / 1000; last = now;
     const dy = Math.abs(scrollY - lastY); lastY = scrollY;
     speed += (7 + Math.min(dy * .6, 30) - speed) * .05;            // scrolling pushes you through faster
@@ -229,6 +249,9 @@ addEventListener('load', () => {
     sign.rotation.y = Math.sin(t * .5) * .25 + mouse.x * .3; sign.rotation.x = -mouse.y * .15; sign.position.y = 1.2 + Math.sin(t * .8) * .25;
     const fade = Math.max(0, Math.min(1, (6 - sign.position.z) / 5));
     layers.forEach(m => m.opacity = m.userData.base * fade); frame.material.opacity = .7 * fade;
+    wires.forEach((m, i) => { m.position.z += dz * .7; if (m.position.z > ZMAX) m.position.z -= 60; m.rotation.x += dt * .15; m.rotation.y += dt * .2; });
+    codes.forEach(c => { c.position.z += dz * .6; if (c.position.z > ZMAX) c.position.z -= 60; c.position.y += Math.sin(t * .5 + c.userData.p) * .003; });
+    big.rotation.y = t * .08; big.rotation.x = t * .05;
     // camera, hero, lights
     const sc = scrollY / Math.max(1, document.body.scrollHeight - innerHeight);
     cam.position.x += (mouse.x * .8 - cam.position.x) * .04; cam.position.y += (-mouse.y * .5 - cam.position.y) * .04;
@@ -242,3 +265,11 @@ addEventListener('load', () => {
   }
   loop();
 });
+
+// Hero glow parallax (CSS variables) + heading entrance
+if (!reduce) addEventListener('pointermove', e => {
+  document.documentElement.style.setProperty('--mx', (e.clientX / innerWidth * 2 - 1).toFixed(3));
+  document.documentElement.style.setProperty('--my', (e.clientY / innerHeight * 2 - 1).toFixed(3));
+});
+const h2io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); h2io.unobserve(en.target); } }), { threshold: .3 });
+document.querySelectorAll('h2').forEach(h => { h.classList.add('reveal'); h2io.observe(h); });
