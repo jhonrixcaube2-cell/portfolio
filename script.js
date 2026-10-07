@@ -40,7 +40,7 @@ document.querySelectorAll('.filters button').forEach(btn => btn.addEventListener
 
 // Contact form validation (opens the visitor's email app; swap for Formspree/EmailJS later)
 // Paste your Formspree endpoint here, e.g. https://formspree.io/f/abcdwxyz
-const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+const FORM_ENDPOINT = 'https://formspree.io/f/xvkzzpzk';
 const form = document.getElementById('form');
 form.addEventListener('submit', e => {
   e.preventDefault();
@@ -59,7 +59,7 @@ form.addEventListener('submit', e => {
   if (!ok) return;
   const f = form.elements, okMsg = document.getElementById('ok');
   if (FORM_ENDPOINT.includes('YOUR_FORM_ID')) {   // not set up yet: fall back to the visitor's email app
-    location.href = `mailto:youremail@example.com?subject=${encodeURIComponent('Portfolio message from ' + f.name.value)}&body=${encodeURIComponent(f.msg.value + '\n\n' + f.email.value)}`;
+    location.href = `https://mail.google.com/mail/?view=cm&fs=1&to=jhonrixccaube2@gmail.com?subject=${encodeURIComponent('Portfolio message from ' + f.name.value)}&body=${encodeURIComponent(f.msg.value + '\n\n' + f.email.value)}`;
     okMsg.textContent = 'Opening your email app to send the message.';
     return;
   }
